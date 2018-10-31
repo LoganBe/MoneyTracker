@@ -159,6 +159,7 @@ while exitflag == 1:
         
     if Which == 'LeftOver' or Which == 'leftover' or Which == 'Leftover' or Which == 'leftOver':
         try:
+            print("Leftover Available:",LeftOvers)
             Money = float(input('How Much Money? '))
             
             if LeftOvers >= Money:
