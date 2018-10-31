@@ -67,7 +67,6 @@ pickle_out = open("Left_Over.pickle","wb")
 pickle.dump(Left_Over,pickle_out)
 pickle_out.close()
 
-NewAllow = input('New Allowance: ')
 Sett_Info = {'Allowance':Allowance}
 pickle_out = open("Settings.pickle","wb")
 pickle.dump(Sett_Info,pickle_out)
