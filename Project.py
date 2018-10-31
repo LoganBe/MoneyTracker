@@ -94,11 +94,11 @@ else:
     Yearly = OldMoney['Yearly'] #Else Use Old Year Value
     
 #%% Save In Case No Changes Made
-Daily_Past = OldMoney['Daily']; Weekly_Past = OldMoney['Weekly']; 
+Daily_Past = OldMoney['Daily']; Weekly_Past = OldMoney['Weekly'] 
 Monthly_Past = OldMoney['Monthly']; Yearly_Past = OldMoney['Yearly']
 
-Money_Info = {'Daily':sum(Daily_Past),'Weekly':sum(Weekly_Past),'Monthly':sum(Monthly_Past),
-              'Yearly':sum(Yearly_Past)}
+Money_Info = {'Daily':[sum(Daily_Past)],'Weekly':[sum(Weekly_Past)],'Monthly':[sum(Monthly_Past)],
+              'Yearly':[sum(Yearly_Past)]}
 pickle_out = open("Money.pickle","wb")
 pickle.dump(Money_Info,pickle_out)
 pickle_out.close() 
