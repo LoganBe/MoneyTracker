@@ -32,7 +32,7 @@ if hour > 12:
 else:
     suffixTime = 'am'
 #Convert Number day of week to String
-DayOfWeek = weekday_convert[weekday]
+DayOfWeek = 'Sunday';#weekday_convert[weekday]
 
 #Convert Month Number to Month Word
 monthword = months[month-1]
@@ -45,7 +45,7 @@ elif day == 3 or day == 23:
 else:
     suffix = 'th'    
 
-print(DayOfWeek + ', ' + monthword + str(day)+suffix)
+print(DayOfWeek + ', ' + monthword + ' ' + str(day)+suffix)
 print(str(hour)+':'+str(minute),suffixTime)
 
 #%% Import Old Data Info Save New Date Information
@@ -76,9 +76,9 @@ else:
     Daily = OldMoney['Daily'] #Else Use Old Day Value
 
 if OldInfo['WeekDay'] != 'Sunday' and DayOfWeek == 'Sunday': #Last input was Not Sunday but today Is Sunday
-    if OldMoney['Weekly'] > 0: #If New Week and Money was Left Over
+    if OldMoney['Weekly'] > [0]: #If New Week and Money was Left Over
         LeftOverNew = OldMoney['Weekly'] #Update LeftOvers
-        LeftOvers = LeftOvers + LeftOverNew   
+        LeftOvers = LeftOvers + LeftOverNew[0]   
     Weekly = [Allowance]; #Reset Week
 else:
     Weekly = OldMoney['Weekly'] #Else Use Old Week Value
