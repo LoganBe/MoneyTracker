@@ -109,109 +109,112 @@ pickle.dump(Left_Over,pickle_out)
 pickle_out.close()
 #%% Main Body
 exitflag = 1 #Use to Check if Exitied Code
-while exitflag == 1:
-    Which = input('Input, LeftOver, View, Settings or Exit? ') #Main Options
-    if Which == 'Input' or Which == 'input': #If Chosen Input
-        try:
-            Money = float(input('How Much Money? ')) 
-            
-            if Money > 0: #If Spending Money
-                print('Spent $', Money)
-            else: #If Refunding
-                print('Refund $', Money)
-            
-            #Increase Daily/Monthly/Yearly
-            Daily.append(Money) 
-            Monthly.append(Money)
-            Yearly.append(Money)
-            
-            if (sum(Weekly)-Money) < 0: #If you spent over your allowance
-                print()
-                print('WARNING')
-                print('YOU HAVE GONE BELOW YOUR ALLOWANCE')
-                print()
-    
-                if LeftOvers > 0: #If You have some leftovers and want to dip into it
+if DayOfWeek == 'Sunday' and hour == 2 and minute == 30:
+        print('Exiting')
+else:
+    while exitflag == 1:
+        Which = input('Input, LeftOver, View, Settings or Exit? ') #Main Options
+        if Which == 'Input' or Which == 'input': #If Chosen Input
+            try:
+                Money = float(input('How Much Money? ')) 
+                
+                if Money > 0: #If Spending Money
+                    print('Spent $', Money)
+                else: #If Refunding
+                    print('Refund $', Money)
+                
+                #Increase Daily/Monthly/Yearly
+                Daily.append(Money) 
+                Monthly.append(Money)
+                Yearly.append(Money)
+                
+                if (sum(Weekly)-Money) < 0: #If you spent over your allowance
                     print()
-                    print('You Have $',LeftOvers,'In LeftOvers')
-                    RollOver = input('Would You Like To Use Money From LeftOver? ')
-                    if RollOver == 'yes' or RollOver == 'Yes': #If you want to Take From LeftOvers
-                        LeftOvers = LeftOvers - Money #Take from LeftOvers
-                        if LeftOvers < 0: 
-                            Weekly.append(LeftOvers) 
-                            LeftOvers = 0
+                    print('WARNING')
+                    print('YOU HAVE GONE BELOW YOUR ALLOWANCE')
+                    print()
+        
+                    if LeftOvers > 0: #If You have some leftovers and want to dip into it
+                        print()
+                        print('You Have $',LeftOvers,'In LeftOvers')
+                        RollOver = input('Would You Like To Use Money From LeftOver? ')
+                        if RollOver == 'yes' or RollOver == 'Yes': #If you want to Take From LeftOvers
+                            LeftOvers = LeftOvers - Money #Take from LeftOvers
+                            if LeftOvers < 0: 
+                                Weekly.append(LeftOvers) 
+                                LeftOvers = 0
+                        else:
+                            Weekly.append(-Money)
                     else:
                         Weekly.append(-Money)
                 else:
                     Weekly.append(-Money)
-            else:
-                Weekly.append(-Money)
-    
-            Money_Info = {'Daily':[sum(Daily)],'Weekly':[sum(Weekly)],'Monthly':[sum(Monthly)],'Yearly':[sum(Yearly)]}
-            pickle_out = open("Money.pickle","wb")
-            pickle.dump(Money_Info,pickle_out)
-            pickle_out.close()
-            
-            Left_Over = {'LeftOvers':LeftOvers}
-            pickle_out = open("Left_Over.pickle","wb")
-            pickle.dump(Left_Over,pickle_out)
-            pickle_out.close()
-            
-        except KeyboardInterrupt:
-            print('Interupted')
         
-    if Which == 'LeftOver' or Which == 'leftover' or Which == 'Leftover' or Which == 'leftOver':
-        try:
-            print("Leftover Available:",LeftOvers)
-            Money = float(input('How Much Money? '))
-            
-            if LeftOvers >= Money:
-                LeftOvers = LeftOvers - Money
-                Left_Over = {'LeftOver':LeftOvers}
-                pickle_out = open("Left_Over.pickle","wb")
-                pickle.dump(Left_Over,pickle_out)
-                pickle_out.close()
-            else:
-                print('Not Enough LeftOvers')
-        
-        except KeyboardInterrupt:
-            print('Interupted')
-        
-    if Which == 'Settings' or Which == 'settings' or Which == 'Setting' or Which == 'setting':
-        try:
-            print('What Would You Like To Change? ')
-            print('Allowance:', Allowance)
-            print('Reset LeftOvers:',LeftOvers)
-            print('Cancel')
-            Sett = input()
-            
-            if Sett == 'Allowance' or Sett == 'allowance':
-                NewAllow = input('New Allowance: ')
-                Sett_Info = {'Allowance':NewAllow}
-                pickle_out = open("Settings.pickle","wb")
-                pickle.dump(Sett_Info,pickle_out)
+                Money_Info = {'Daily':[sum(Daily)],'Weekly':[sum(Weekly)],'Monthly':[sum(Monthly)],'Yearly':[sum(Yearly)]}
+                pickle_out = open("Money.pickle","wb")
+                pickle.dump(Money_Info,pickle_out)
                 pickle_out.close()
                 
-            if Sett == 'Reset LeftOvers' or 'reset leftovers' or 'Reset leftovers' or 'reset Leftovers':
-                LeftOvers = 0
                 Left_Over = {'LeftOvers':LeftOvers}
                 pickle_out = open("Left_Over.pickle","wb")
                 pickle.dump(Left_Over,pickle_out)
                 pickle_out.close()
                 
-            else: 
-                print('Exiting')
+            except KeyboardInterrupt:
+                print('Interupted')
+            
+        if Which == 'LeftOver' or Which == 'leftover' or Which == 'Leftover' or Which == 'leftOver':
+            try:
+                print("Leftover Available:",LeftOvers)
+                Money = float(input('How Much Money? '))
                 
-        except KeyboardInterrupt:
-            print('Interupted')
+                if LeftOvers >= Money:
+                    LeftOvers = LeftOvers - Money
+                    Left_Over = {'LeftOver':LeftOvers}
+                    pickle_out = open("Left_Over.pickle","wb")
+                    pickle.dump(Left_Over,pickle_out)
+                    pickle_out.close()
+                else:
+                    print('Not Enough LeftOvers')
+            
+            except KeyboardInterrupt:
+                print('Interupted')
+            
+        if Which == 'Settings' or Which == 'settings' or Which == 'Setting' or Which == 'setting':
+            try:
+                print('What Would You Like To Change? ')
+                print('Allowance:', Allowance)
+                print('Reset LeftOvers:',LeftOvers)
+                print('Cancel')
+                Sett = input()
+                
+                if Sett == 'Allowance' or Sett == 'allowance':
+                    NewAllow = input('New Allowance: ')
+                    Sett_Info = {'Allowance':NewAllow}
+                    pickle_out = open("Settings.pickle","wb")
+                    pickle.dump(Sett_Info,pickle_out)
+                    pickle_out.close()
+                    
+                if Sett == 'Reset LeftOvers' or 'reset leftovers' or 'Reset leftovers' or 'reset Leftovers':
+                    LeftOvers = 0
+                    Left_Over = {'LeftOvers':LeftOvers}
+                    pickle_out = open("Left_Over.pickle","wb")
+                    pickle.dump(Left_Over,pickle_out)
+                    pickle_out.close()
+                    
+                else: 
+                    print('Exiting')
+                    
+            except KeyboardInterrupt:
+                print('Interupted')
+        
+        if Which == 'View' or Which == 'view':
+            print('Current Weekly Allowance Left:', sum(Weekly))
+            print('LeftOvers:',LeftOvers)
+            print('Money Spent today: ', sum(Daily))
+            print('Money Spent this Month: ', sum(Monthly))
+            print('Money Spent this Year: ', sum(Yearly))
     
-    if Which == 'View' or Which == 'view':
-        print('Current Weekly Allowance Left:', sum(Weekly))
-        print('LeftOvers:',LeftOvers)
-        print('Money Spent today: ', sum(Daily))
-        print('Money Spent this Month: ', sum(Monthly))
-        print('Money Spent this Year: ', sum(Yearly))
-
-    if Which == "Exit" or Which == "exit":
-        print('Exiting')
-        exitflag = 0;
+        if Which == "Exit" or Which == "exit":
+            print('Exiting')
+            exitflag = 0;
